@@ -7,10 +7,8 @@ public class MazeGeneratorCell
 {
     public int X;
     public int Y;
-
     public bool WallLeft = true;
     public bool WallBottom = true;
-
     public bool Visited = false;
 }
 
@@ -34,20 +32,12 @@ public class MazeGenerator
 
         for (int y = 0; y < maze.GetLength(0); ++y)
         {
-            Debug.Log(maze.GetLength(0) - 1 + ", " + y);
             maze[maze.GetLength(0) - 1, y].WallLeft = false;
         }
-
-        PlaceMazeExit(maze);
 
         maze[maze.GetLength(0) - 1, (maze.GetLength(1) - 1) / 2 + (maze.GetLength(0) - 1) % 2].WallBottom = false;
 
         return maze;
-    }
-
-    private void PlaceMazeExit(MazeGeneratorCell[,] maze)
-    {
-        
     }
 
     private void RemoveWallsWithBacktracker(MazeGeneratorCell[,] maze)
