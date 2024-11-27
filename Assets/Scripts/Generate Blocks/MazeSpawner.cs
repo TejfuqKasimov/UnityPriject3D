@@ -87,7 +87,7 @@ public class MazeSpawner : MonoBehaviour
         if (isEnd)
         {
             int x = (int)((Character.position.x - PlayerPrRast) / Height);
-            int y = (int)((Character.position.z + (Height * previousPrGOMaze.GetLength(0) / 2)) / Height);
+            int y = (int)((Character.position.z + (Height * previousGOMaze.GetLength(0) / 2)) / Height);
             Debug.Log(x + ", " + y);
             // ShowWay();
         }
