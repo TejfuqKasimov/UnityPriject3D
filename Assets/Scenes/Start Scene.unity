@@ -505,12 +505,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellPrefab: {fileID: 3953915943900680653, guid: e07258cf495163e4a80b5351161ff2f1, type: 3}
   blockPrefab: {fileID: 6517872906649334012, guid: 5606a63236f7d154180fee1de40b5e4b, type: 3}
-  currentBlock: {fileID: 0}
-  previousBlock: {fileID: 0}
-  previousPrBlock: {fileID: 0}
   startRoomPrefab: {fileID: 474913652397854125, guid: f395732367190f242870ed6d06ce5ac9, type: 3}
-  startRoom: {fileID: 0}
-  obj: {fileID: 1169750332}
+  Character: {fileID: 1169750332}
+  isEnd: 0
+  WayPrefab: {fileID: 8992504306134571974, guid: f6985b35ef1a95f4d8c81c7ca204ddb4, type: 3}
 --- !u!4 &928188963
 Transform:
   m_ObjectHideFlags: 0
