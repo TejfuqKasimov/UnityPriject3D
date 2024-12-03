@@ -180,7 +180,7 @@ public class MazeSpawner : MonoBehaviour
         curBlock.WallWithDoorRight.transform.position = new Vector3(Rast - 1f * Height * CountHeight / 2 - 0.175f, 2.2f, -(Height * CountHeight / 2 - 1.7f) / 2 - 1.7f);
         
         curBlock.WallWithDoorUp.transform.position = new Vector3(Rast - 1f * Height * CountHeight / 2 - 0.175f, 3.9f, -0.05f);
-        curBlock.Door.transform.position = new Vector3(Rast - 1f * Height * CountHeight / 2, 0f, -0.05f);
+        curBlock.Door.transform.position = new Vector3(Rast - 1f * Height * CountHeight / 2 - 0.1f, 0f, -0.05f);
         Rast += 1f * Height * CountHeight / 2;
 
         return curObj;
