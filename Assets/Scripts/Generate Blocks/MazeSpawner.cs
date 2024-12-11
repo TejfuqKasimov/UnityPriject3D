@@ -82,7 +82,7 @@ public class MazeSpawner : MonoBehaviour
         if (LevelEnded)
         {
             ++LevelEndedSecond;
-            if (LevelEndedSecond > 100)
+            if (LevelEndedSecond > 55)
             {
                 LevelEnded = false;  // Reset LevelEnded
                 // Destroy Previous Block
