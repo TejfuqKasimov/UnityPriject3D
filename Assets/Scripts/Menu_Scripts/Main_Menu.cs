@@ -12,7 +12,6 @@ public class Main_Menu : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("Gay");
         Application.Quit();
     }
     
