@@ -5,26 +5,14 @@ public class Pause_Menu : MonoBehaviour
 {
     public bool PauseGame;
     public GameObject pauseGameMenu;
-    public GameObject canvasGameObject;
-    public void EnableCanvas()
-    {
-        canvasGameObject.SetActive(true);
-    }
-    public void DisableCanvas()
-    {
-        canvasGameObject.SetActive(false);
-    }
+
+    
     void Update()
-    {
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        if (SceneManager.GetActiveScene().buildIndex == 1) {
-            EnableCanvas();
-        }
-        else {
-            DisableCanvas();
-        }
+    {   
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            
             if (PauseGame)
             {
                 Resume();
@@ -53,7 +41,6 @@ public class Pause_Menu : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        DisableCanvas();
         SceneManager.LoadScene("Menu");
     }
 
