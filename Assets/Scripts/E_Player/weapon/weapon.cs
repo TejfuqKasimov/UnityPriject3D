@@ -5,22 +5,25 @@ public class weapon : MonoBehaviour
 {
 
     [SerializeField] Transform bullet;
+    [SerializeField] GameObject bulletPref;
+    [SerializeField] GameObject Spawn;
     public int BulletForce = 5000;
-    public int Magaz = 7;
+    private int Magaz = 30;
     public AudioClip Fire;
     public AudioClip Reload;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetMouseButtonDown(0) &Magaz>0)
+        if (Input.GetMouseButtonDown(0) && Magaz > 0)
         {
-            Transform BulletInstance = (Transform) Instantiate(bullet, GameObject.Find ("Spawn").transform.position, Quaternion.identity);
-            BulletInstance.GetComponent<Rigidbody>().AddForce(transform.forward * BulletForce);
+            Instantiate(bulletPref, Spawn.transform.position, Spawn.transform.rotation);
             Magaz = Magaz - 1;
             
         }
         if (Input.GetKeyDown(KeyCode.R))
-            Magaz = 7;
+            Magaz = 30;
+        
+        Debug.Log(Magaz);
     }
 }
