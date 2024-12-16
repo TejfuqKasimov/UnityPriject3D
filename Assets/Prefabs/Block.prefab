@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 1376730019951095799}
   m_Layer: 0
   m_Name: Walls with Door
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 6225860315997888684}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 309057348990339996}
   m_Layer: 0
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
