@@ -3,27 +3,52 @@ using System.Collections;
 
 public class weapon : MonoBehaviour
 {
-
-    [SerializeField] Transform bullet;
     [SerializeField] GameObject bulletPref;
     [SerializeField] GameObject Spawn;
+    [SerializeField] float spread = 10;
     public int BulletForce = 5000;
     private int Magaz = 30;
     public AudioClip Fire;
     public AudioClip Reload;
+    public Camera cam;
+    
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetMouseButtonDown(0) && Magaz > 0)
         {
-            Instantiate(bulletPref, Spawn.transform.position, Spawn.transform.rotation);
+            Shoot();
             Magaz = Magaz - 1;
             
         }
         if (Input.GetKeyDown(KeyCode.R))
             Magaz = 30;
+    }
+
+    private void Shoot()
+    {
+        // Ray ray = Spawn.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit))
+            targetPoint = hit.point;
+        else
+            targetPoint = ray.GetPoint(100);
+
+        Vector3 DirBullet = targetPoint - Spawn.transform.position;
+
+        float RayX = Random.Range(-spread, spread);
+        float RayY = Random.Range(-spread, spread);
+
+        Vector3 DirBulletWithSpread = new Vector3(RayX, RayY, 0) + DirBullet;
+
+
+        GameObject currentBullet = Instantiate(bulletPref, Spawn.transform.position, Spawn.transform.rotation); //Quaternion.Euler(DirBulletWithSpread.normalized)
+        // currentBullet.transform.forward = DirBulletWithSpread.normalized;
+        currentBullet.GetComponent<Rigidbody>().AddForce(DirBulletWithSpread.normalized * BulletForce, ForceMode.Impulse);
         
-        Debug.Log(Magaz);
     }
 }
