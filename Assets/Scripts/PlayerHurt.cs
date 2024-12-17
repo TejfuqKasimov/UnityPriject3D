@@ -5,30 +5,36 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerHurt : MonoBehaviour
+public class Health : MonoBehaviour
 {
-    public int HP = 100;
+    [SerializeField]private int MaxHealth = 100;
+    private int _currentHealth;
     public GameObject bloodySreen;
-
+    public event Action<float> HealthChanged;
     public bool isDead = false;
     public TextMeshProUGUI playerHealthUI;
     public GameObject gameOverUI;
     private void Start()
     {
-        playerHealthUI.text = $"Health: {HP}";
+        playerHealthUI.text = "Health: ";
+        _currentHealth = MaxHealth;
     }
-    public void TakeDamage(int damageAmount) 
+    public void ChangeHealth(int changeAmount) 
     {
-        HP -= damageAmount;
+        _currentHealth += changeAmount;
 
-        if (HP <= 0)
+        if (_currentHealth <= 0)
         {
             PlayerDead();
         }
         else
         {
-            StartCoroutine(BloodyScreenEffect());
-            playerHealthUI.text = $"Health: {HP}";
+            if (changeAmount < 0) {
+                StartCoroutine(BloodyScreenEffect());
+                playerHealthUI.text = "Health: ";
+                float _currentHealthAsPersentage = (float)_currentHealth / MaxHealth;
+                HealthChanged?.Invoke(_currentHealthAsPersentage);
+            }
         }
     }
 
@@ -75,6 +81,8 @@ public class PlayerHurt : MonoBehaviour
     private void PlayerDead() 
     {
         isDead = true;
+
+        HealthChanged?.Invoke(0);
 
         GetComponent<PlayerController>().enabled = false;
         GetComponent<PersonLook>().enabled = false;
