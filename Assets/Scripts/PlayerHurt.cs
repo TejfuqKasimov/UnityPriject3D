@@ -5,26 +5,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Health : MonoBehaviour
+public class PlayerHurt : MonoBehaviour
 {
-    [SerializeField]private int MaxHealth = 100;
-    private int _currentHealth;
+    [SerializeField]private float MaxHealth = 100;
+    private float _currentHealth;
     public GameObject bloodySreen;
     public event Action<float> HealthChanged;
     public bool isDead = false;
     public TextMeshProUGUI playerHealthUI;
+
+    public GameObject AIM;
+    public GameObject MANA;
     public GameObject gameOverUI;
     private void Start()
     {
         playerHealthUI.text = "Health: ";
         _currentHealth = MaxHealth;
     }
-    public void ChangeHealth(int changeAmount) 
+    public void ChangeHealth(float changeAmount) 
     {
         _currentHealth += changeAmount;
 
         if (_currentHealth <= 0)
         {
+            Debug.Log("gay");
             PlayerDead();
         }
         else
@@ -32,6 +36,11 @@ public class Health : MonoBehaviour
             if (changeAmount < 0) {
                 StartCoroutine(BloodyScreenEffect());
                 playerHealthUI.text = "Health: ";
+                float _currentHealthAsPersentage = (float)_currentHealth / MaxHealth;
+                HealthChanged?.Invoke(_currentHealthAsPersentage);
+            }
+            else
+            {
                 float _currentHealthAsPersentage = (float)_currentHealth / MaxHealth;
                 HealthChanged?.Invoke(_currentHealthAsPersentage);
             }
@@ -84,11 +93,13 @@ public class Health : MonoBehaviour
 
         HealthChanged?.Invoke(0);
 
-        GetComponent<PlayerController>().enabled = false;
-        GetComponent<PersonLook>().enabled = false;
+        GetComponent<PlayerCONTROLLER>().enabled = false;
+        GetComponent<look>().enabled = false;
         
-        GetComponentInChildren<Animator>().enabled = true;
+        // GetComponentInChildren<Animator>().enabled = true;
         playerHealthUI.gameObject.SetActive(false);
+        AIM.SetActive(false);
+        MANA.SetActive(false);
 
         GetComponent<ScreenFader>().StartFade();
         StartCoroutine(ShowGameOverUI());

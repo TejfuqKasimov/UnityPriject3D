@@ -10,17 +10,20 @@ public class PlayerCONTROLLER : MonoBehaviour
     [SerializeField] private float _ManaSpend = 0.8f;
     [SerializeField] private float _ManaReset = 0.8f;
 
+    ManaChange manaChange;
+
 
     private CharacterController _characterController;
     private Vector3 _walkDirection;
     private Vector3 _velocity;
     private float _speedWalk = 0f;
-    private float Mana = 100f;
+    public float ManaM = 100f;
     bool flagSpendMana = true;
 
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        manaChange = GetComponent<ManaChange>();
     }
 
     private void FixedUpdate()
@@ -60,21 +63,23 @@ public class PlayerCONTROLLER : MonoBehaviour
     {
         if (!canSit)
         {
-            _speedWalk = (canRun && Mana > 0 && flagSpendMana) ? _speedRun : _speed;
-            if (canRun && Mana > 0 && flagSpendMana)
+            _speedWalk = (canRun && ManaM > 0 && flagSpendMana) ? _speedRun : _speed;
+            if (canRun && ManaM > 0 && flagSpendMana)
             {
-                Mana -= _ManaSpend;
+                ManaM -= _ManaSpend;
+                manaChange.ChangeMana(-_ManaSpend);
             }
         }
-        if (Mana < 0f)
+        if (ManaM < 0f)
         {
             flagSpendMana = false;
         }
-        if (Mana < 100f && !(canRun && flagSpendMana))
+        if (ManaM < 100f && !(canRun && flagSpendMana))
         {
-            Mana += _ManaReset;
+            ManaM += _ManaReset;
+            manaChange.ChangeMana(_ManaSpend);
         }
-        if (Mana >= 25f)
+        if (ManaM >= 25f)
         {
             flagSpendMana = true;
         }

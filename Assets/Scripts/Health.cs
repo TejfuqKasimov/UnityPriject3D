@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class Health : MonoBehaviour
 {
     [SerializeField]private Image HpBarfilling;
 
-    [SerializeField] Health health;
+    [SerializeField] PlayerHurt health;
 
 
 

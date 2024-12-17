@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 
 public class MazeSpawner : MonoBehaviour
@@ -72,7 +72,7 @@ public class MazeSpawner : MonoBehaviour
             LevelEndedSecond = 0;
         }
         // if level is end show way to next level
-        if (isEnd)
+        if (isEnd || Input.GetKeyDown(KeyCode.Q))
         {
             ShowWay();
         }

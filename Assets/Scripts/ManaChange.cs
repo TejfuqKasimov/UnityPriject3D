@@ -5,16 +5,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Mana : MonoBehaviour
+public class ManaChange : MonoBehaviour
 {
-    [SerializeField]private int MaxMana = 100;
-    private int _currentMana;
+    [SerializeField]private float MaxMana = 100f;
+    private float _currentMana;
     public event Action<float> ManaChanged;
     private void Start()
     {
         _currentMana = MaxMana;
     }
-    public void ChangeMana(int changeAmount) 
+    public void ChangeMana(float changeAmount) 
     {
         _currentMana += changeAmount;
 
@@ -26,10 +26,8 @@ public class Mana : MonoBehaviour
         }
         else
         {
-            if (changeAmount < 0) {
-                float _currentManaAsPersentage = (float)_currentMana/ MaxMana;
-                ManaChanged?.Invoke(_currentManaAsPersentage);
-            }
+            float _currentManaAsPersentage = (float)_currentMana/ MaxMana;
+            ManaChanged?.Invoke(_currentManaAsPersentage);
         }
     }
 

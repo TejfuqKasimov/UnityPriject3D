@@ -4,27 +4,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ManaBar : MonoBehaviour
+public class Mana : MonoBehaviour
 {
     [SerializeField]private Image Manafilling;
 
-    [SerializeField] Mana mana;
+    [SerializeField] ManaChange mana;
 
 
 
     private void Awake() 
     {
         mana.ManaChanged += OnManaChanged;
-
     }
 
     private void OnDestroy()
     {
         mana.ManaChanged -= OnManaChanged;
     }
-    private void OnManaChanged(float valueAsPerventage) 
-    {  
+    private void OnManaChanged(float valueAsPerventage)
+    {
         Manafilling.fillAmount = valueAsPerventage;
     }
-
 }
