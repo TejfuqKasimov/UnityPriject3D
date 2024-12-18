@@ -13,8 +13,7 @@ public class MazeSpawner : MonoBehaviour
     private GameObject currentBlock;
     private GameObject previousBlock;
     private GameObject previousPrBlock;
-    public GameObject startRoomPrefab;  // Start Room Prefab
-    private GameObject startRoom;
+    public GameObject startRoom;  // Start Room Prefab
     private float Rast = 5.5f;
     private float PlayerRast = 5.5f;
     private float PlayerPrRast = 5.5f;
@@ -40,7 +39,6 @@ public class MazeSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        startRoom = Instantiate(startRoomPrefab, Vector3.zero, quaternion.identity);
         currentBlock = createBlock();
         currentPath = GenerateWay();
         currentGOMaze = Generate();
