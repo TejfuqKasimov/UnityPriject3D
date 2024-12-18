@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(PlayerHealth);
         if (TakeDam || Input.GetKeyDown(KeyCode.T))
         {
             TakeDam = false;

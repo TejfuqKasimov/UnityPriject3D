@@ -13,6 +13,7 @@ public class MazeSpawner : MonoBehaviour
     private GameObject currentBlock;
     private GameObject previousBlock;
     private GameObject previousPrBlock;
+    public GameObject EnemyPrefab;  // Enemy Prefab
     public GameObject startRoom;  // Start Room Prefab
     private float Rast = 5.5f;
     private float PlayerRast = 5.5f;
@@ -24,6 +25,12 @@ public class MazeSpawner : MonoBehaviour
     private GameObject[,] currentGOMaze = new GameObject[5, 5];
     private GameObject[,] previousGOMaze = new GameObject[5, 5];
     private GameObject[,] previousPrGOMaze = new GameObject[5, 5];
+    private GameObject[] currentEnemies = new GameObject[5];
+    private GameObject[] previousPrEnemies = new GameObject[5];
+    private GameObject[] previousEnemies = new GameObject[5];
+    private int currentCountEnemies = 5;
+    private int previousPrCountEnemies = 5;
+    private int previousCountEnemies = 5;
     public Transform Character;
     private int LevelCount = 0;
     private bool LevelEnded = false;
@@ -42,6 +49,8 @@ public class MazeSpawner : MonoBehaviour
         currentBlock = createBlock();
         currentPath = GenerateWay();
         currentGOMaze = Generate();
+        currentEnemies = SpawnBots(5, CountHeight);
+        currentCountEnemies = 5;
     }
 
     // Update is called once per frame
@@ -62,6 +71,11 @@ public class MazeSpawner : MonoBehaviour
             previousPrBlock = previousBlock;
             previousBlock = currentBlock;
             currentBlock = createBlock();
+            previousPrEnemies = previousEnemies;
+            previousPrCountEnemies = previousCountEnemies;
+            previousEnemies = currentEnemies;
+            previousCountEnemies = currentCountEnemies;
+            currentEnemies = SpawnBots(CountHeight, CountHeight);
             previousBlock.GetComponent<Block>().Door.GetComponent<Animator>().SetBool("Close", true);
             int tmp = LevelCount / 4;
             CountWight = 5 + 2 * tmp;
@@ -108,6 +122,13 @@ public class MazeSpawner : MonoBehaviour
                         }
                     }
                 }
+                for (int i = 0; i < previousPrCountEnemies; ++i)
+                {
+                    if (previousPrEnemies[i] != null)
+                    {
+                        Destroy(previousPrEnemies[i]);
+                    }
+                }
             }
         }
     }
@@ -123,7 +144,6 @@ public class MazeSpawner : MonoBehaviour
             for (int z = 0; z < maze.GetLength(1); ++z)
             {
                 GOMaze[x, z] = Instantiate(cellPrefab, new Vector3(PlayerRast + 1.7f + x * Wight, 0, -(Height * CountHeight / 2 - 1.7f) + z * Height), quaternion.identity);
-                
                 Cell c = GOMaze[x, z].GetComponent<Cell>();
                 c.WallLeft.SetActive(maze[x, z].WallLeft);
                 c.WallBottom.SetActive(maze[x, z].WallBottom);
@@ -292,5 +312,20 @@ public class MazeSpawner : MonoBehaviour
         int x = (int)((Character.position.x - PlayerPrRast) / Height);
         int y = (int)((Character.position.z + (Height * previousGOMaze.GetLength(0) / 2)) / Height);
         return new Tuple<int, int>(x, y);
+    }
+
+    private GameObject[] SpawnBots(int ColvoBots, int _Height)
+    {
+        GameObject[] _Enemies = new GameObject[_Height];
+        for (int i = 0; i < ColvoBots; ++i)
+        {
+            int x = UnityEngine.Random.Range(0, _Height);
+            int y = UnityEngine.Random.Range(0, _Height);
+            Debug.Log(x + " " + y);
+
+            _Enemies[i] = Instantiate(EnemyPrefab, new Vector3(PlayerRast + 1.7f + x * Height, 2, -(Height * CountHeight / 2 - 1.7f) + y * Height), Quaternion.identity);
+        }
+
+        return _Enemies;
     }
 }
