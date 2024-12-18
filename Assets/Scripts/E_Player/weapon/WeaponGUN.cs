@@ -1,16 +1,16 @@
 using UnityEngine;
-using System.Collections;
 
-public class weapon : MonoBehaviour
+public class WeaponGUN : MonoBehaviour
 {
     [SerializeField] GameObject bulletPref;
     [SerializeField] GameObject Spawn;
-    [SerializeField] private float spread = 10;
-    [SerializeField] private int BulletForce = 6000;
-    [SerializeField] private int Magaz = 30;
-
+    [SerializeField] float spread = 10;
+    public int BulletForce = 4000;
+    private int Magaz = 7;
+    public AudioClip Fire;
+    public AudioClip Reload;
     public Camera cam;
-    
+
 
     // Update is called once per frame
     void Update()
@@ -19,10 +19,10 @@ public class weapon : MonoBehaviour
         {
             Shoot();
             Magaz = Magaz - 1;
-            
+
         }
         if (Input.GetKeyDown(KeyCode.R))
-            Magaz = 30;
+            Magaz = 7;
     }
 
     private void Shoot()
@@ -48,6 +48,6 @@ public class weapon : MonoBehaviour
         GameObject currentBullet = Instantiate(bulletPref, Spawn.transform.position, Spawn.transform.rotation); //Quaternion.Euler(DirBulletWithSpread.normalized)
         // currentBullet.transform.forward = DirBulletWithSpread.normalized;
         currentBullet.GetComponent<Rigidbody>().AddForce(DirBulletWithSpread.normalized * BulletForce, ForceMode.Impulse);
-        
+
     }
 }
